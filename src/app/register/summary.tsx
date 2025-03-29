@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@radix-ui/react-label';
 import { Edu } from "./Edu"
+import RenderSummary from './renderSummary';
 
 
 function Summary() {
@@ -47,33 +48,7 @@ function Summary() {
             <div className='p-10'>
                 {summary && <Card>
                     <CardContent>
-                        {
-                            Object.entries(summary).map(([key, val]) => {
-                                // Check if the value is an object (e.g., address)
-                                if (typeof val === "object" && val !== null) {
-                                    return (
-                                        <div key={`div-${key}`} className="grid grid-cols-12 gap-4 border-t-2 w-full border-amber-100 p-4">
-                                            <h1 className="col-span-12 rounded-md bg-amber-100 text-blue-600 text-center ">{key.toUpperCase()}</h1>
-                                            <div className="col-span-10 space-y-2 ml-8">
-                                                {Object.entries(val).map(([subKey, subVal]) => (
-                                                    <div key={`div-${key}-${subKey}`} className="grid grid-cols-12 gap-4">
-                                                        <span className="col-span-3 ">{subKey.toUpperCase()}</span>
-                                                        <span className="col-span-9">{subVal !== null && subVal !== undefined ? String(subVal) : "N/A"}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    );
-                                }
-
-                                // Handle non-object values (firstName, lastName)
-                                return (
-                                    <div key={`div-${key}`} className="grid grid-cols-12 gap-4 px-5 py-2">
-                                        <span className="col-span-3 text-blue-400">{key.toUpperCase()}</span>
-                                        <span className="col-span-9">{val !== null && val !== undefined ? String(val) : "N/A"}</span>
-                                    </div>
-                                );
-                            })}
+                        <RenderSummary data={summary} level={0}/>
                     </CardContent>
                 </Card>}
             </div>
